@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>GlitchedPolygons.Services.MailgunEmailSender</id>
+    <version>1.0.0</version>
+    <title>MailgunEmailSender</title>
+    <authors>Raphael Beck</authors>
+    <owners>Raphael Beck</owners>
+    <iconUrl>http://www.stickpng.com/assets/images/58480ed8cef1014c0b5e492d.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Mailgun Email Sender API Wraper for ASP.NET Core apps
+With this useful service you can send email through Mailgun. API Key and other params are set in the sender class ctor.
+Intended use is within ASP.NET Core apps using MVC; inject the service into the DI container (inside Startup.cs use services.AddTransient) and then use it in your code.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Email Sender API Mailgun Wrapper Service Interface DI</tags>
+  </metadata>
+</package>
