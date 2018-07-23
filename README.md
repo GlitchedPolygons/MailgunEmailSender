@@ -1,4 +1,4 @@
-# Mailgun Email Sender API Wraper for ASP.NET Core apps
+# Mailgun Email Sender API Wrapper for ASP.NET Core apps
 
 With this useful service you can send email through Mailgun. 
 API Key and other params are set in the sender class ctor. 
