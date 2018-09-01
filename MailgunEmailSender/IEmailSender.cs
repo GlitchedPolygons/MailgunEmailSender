@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace GlitchedPolygons.Services.MailgunEmailSender
 {
     /// <summary>
-    /// Interface for sending emails asynchronosuly.
+    /// Interface for sending emails asynchronously.
     /// </summary>
     public interface IEmailSender
     {
