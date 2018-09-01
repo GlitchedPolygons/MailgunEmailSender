@@ -1,10 +1,12 @@
+[![CircleCI](https://circleci.com/gh/GlitchedPolygons/MailgunEmailSender.svg?style=shield)](https://circleci.com/gh/GlitchedPolygons/MailgunEmailSender)
+
 # Mailgun Email Sender API Wrapper for ASP.NET Core apps
 
-With this useful service you can send email through Mailgun. 
-API Key and other params are set in the sender class ctor. 
+With this useful service you can easily send email through Mailgun. 
+The Mailgun API Key (and other params) are set in the _EmailSender_'s class ctor. 
 
-Intended use is within ASP.NET Core apps using MVC; inject the service into the DI container 
-(inside Startup.cs use services.AddTransient) and then use it in your code.
+Intended usage is within ASP.NET Core apps using MVC; inject the service into the DI container 
+(inside Startup.cs use `services.AddTransient` or `services.AddSingleton`) and then use it in your code.
 
 ### Dependencies:
 
