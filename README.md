@@ -10,4 +10,4 @@ Intended usage is within ASP.NET Core apps using MVC; inject the service into th
 
 ### Dependencies:
 
-* RestSharp
+* [RestSharp (>= 106.3.1)](https://github.com/restsharp/RestSharp)
