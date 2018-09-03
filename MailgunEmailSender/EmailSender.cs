@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using RestSharp;
@@ -99,8 +101,9 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
         /// <param name="additionalRecipients">Any additional, directly addressed recipients. IMPORTANT: read the doc summary to find out why this is a bad idea. Use for testing or internal use only!!!</param>
         /// <param name="cc">Carbon copy list.</param>
         /// <param name="bcc">Blind carbon copy list.</param>
+        /// <param name="attachments">Any email attachments.</param>
         /// <returns>The <see cref="IRestResponse"/> that resulted from sending the email. Contains useful data like <see cref="IRestResponse.IsSuccessful"/>, <see cref="IRestResponse.ErrorMessage"/> in case of an error, etc...</returns>
-        public async Task<IRestResponse> SendEmailAsync(string from, string to, string subject, string text, string html, string replyTo, string[] additionalRecipients = null, string[] cc = null, string[] bcc = null)
+        public async Task<IRestResponse> SendEmailAsync(string from, string to, string subject, string text, string html, string replyTo, string[] additionalRecipients = null, string[] cc = null, string[] bcc = null, IEnumerable<Attachment> attachments = null)
         {
             var request = new RestRequest
             {
@@ -145,6 +148,14 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
                 for (int i = bcc.Length - 1; i >= 0; i--)
                 {
                     request.AddParameter("bcc", bcc[i]);
+                }
+            }
+
+            if (attachments != null)
+            {
+                foreach (var attachment in attachments)
+                {
+                    request.AddFile(attachment.name, attachment.file, attachment.fileName, attachment.contentType);
                 }
             }
 

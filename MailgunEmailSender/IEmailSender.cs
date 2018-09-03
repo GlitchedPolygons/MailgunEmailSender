@@ -1,5 +1,6 @@
-﻿using RestSharp;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using RestSharp;
 
 namespace GlitchedPolygons.Services.MailgunEmailSender
 {
@@ -34,7 +35,8 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
         /// <param name="additionalRecipients">Any additional, directly addressed recipients. IMPORTANT: read the doc summary to find out why this is a very bad idea. Use for testing or internal use ONLY!!!</param>
         /// <param name="cc">Carbon copy list.</param>
         /// <param name="bcc">Blind carbon copy list.</param>
+        /// <param name="attachments">Any email attachments.</param>
         /// <returns>The <see cref="IRestResponse"/> that resulted from sending the email. Contains useful data like <see cref="IRestResponse.IsSuccessful"/>, <see cref="IRestResponse.ErrorMessage"/> in case of an error, etc...</returns>
-        Task<IRestResponse> SendEmailAsync(string from, string to, string subject, string text, string html, string replyTo = null, string[] additionalRecipients = null, string[] cc = null, string[] bcc = null);
+        Task<IRestResponse> SendEmailAsync(string from, string to, string subject, string text, string html, string replyTo = null, string[] additionalRecipients = null, string[] cc = null, string[] bcc = null, IEnumerable<Attachment> attachments = null);
     }
 }
