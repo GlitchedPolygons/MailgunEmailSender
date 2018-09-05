@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/GlitchedPolygons/MailgunEmailSender.svg?style=shield)](https://circleci.com/gh/GlitchedPolygons/MailgunEmailSender)
+[![CircleCI](https://circleci.com/gh/GlitchedPolygons/MailgunEmailSender.svg?style=shield)](https://circleci.com/gh/GlitchedPolygons/MailgunEmailSender)   [![Build Status](https://travis-ci.org/GlitchedPolygons/MailgunEmailSender.svg?branch=master)](https://travis-ci.org/GlitchedPolygons/MailgunEmailSender)
 
 # Mailgun Email Sender API Wrapper for ASP.NET Core apps
 
