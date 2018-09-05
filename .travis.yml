@@ -1,0 +1,16 @@
+
+language: csharp
+sudo: false # faster builds
+solution: ./MailgunEmailSender.sln
+dist: trusty
+notifications:
+  email: false
+install:
+  - dotnet restore ./MailgunEmailSender.sln
+mono: none
+dotnet: 2.1.300
+script:
+  - dotnet restore ./MailgunEmailSender.sln
+  - cd UnitTests/
+  - dotnet test
+  
