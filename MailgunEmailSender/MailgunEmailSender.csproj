@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>GlitchedPolygons.Services.MailgunEmailSender</PackageId>
     <Product>GlitchedPolygons.Services.MailgunEmailSender</Product>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Company>Glitched Polygons</Company>
     <Authors>Glitched Polygons</Authors>
     <PackageProjectUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</PackageProjectUrl>
@@ -18,14 +18,16 @@ With this useful service you can send email through Mailgun. API Key and other p
 Intended use is within ASP.NET Core apps using MVC; inject the service into the DI container (inside Startup.cs use services.AddTransient) and then use it in your code.</Description>
     <PackageTags>Email Sender API Mailgun Wrapper Service Interface DI</PackageTags>
     <PackageReleaseNotes>Added attachments parameter.</PackageReleaseNotes>
+    <AssemblyName>GlitchedPolygons.Services.MailgunEmailSender</AssemblyName>
+    <RootNamespace>GlitchedPolygons.Services.MailgunEmailSender</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\MailgunEmailSender.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\GlitchedPolygons.Services.MailgunEmailSender.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\MailgunEmailSender.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\GlitchedPolygons.Services.MailgunEmailSender.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
