@@ -1,23 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>GlitchedPolygons.Services.MailgunEmailSender</Title>
     <PackageId>GlitchedPolygons.Services.MailgunEmailSender</PackageId>
     <Product>GlitchedPolygons.Services.MailgunEmailSender</Product>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Company>Glitched Polygons</Company>
     <Authors>Glitched Polygons</Authors>
     <PackageProjectUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</RepositoryUrl>
+    <PackageVersion>1.0.5</PackageVersion>
     <PackageIconUrl>https://media.githubusercontent.com/media/GlitchedPolygons/NugetIcons/8fc395a8b2ae595a2816a690669490cf9a4764b9/mailgun.png</PackageIconUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Mailgun Email Sender API Wrapper for ASP.NET Core apps
 
-With this useful service you can send email through Mailgun. API Key and other params are set in the sender class ctor.
+With this useful service you can send email through Mailgun. API Key and other params are set in the sender class constructor.
 
 Intended use is within ASP.NET Core apps using MVC; inject the service into the DI container (inside Startup.cs use services.AddTransient) and then use it in your code.</Description>
-    <PackageTags>Email Sender API Mailgun Wrapper Service Interface DI</PackageTags>
-    <PackageReleaseNotes>Added attachments parameter.</PackageReleaseNotes>
+    <PackageTags>Email Sender API Mailgun Wrapper Service Interface DI IoC SMTP Domain</PackageTags>
     <AssemblyName>GlitchedPolygons.Services.MailgunEmailSender</AssemblyName>
     <RootNamespace>GlitchedPolygons.Services.MailgunEmailSender</RootNamespace>
   </PropertyGroup>

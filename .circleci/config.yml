@@ -10,4 +10,4 @@ jobs:
           command: dotnet restore
       - run:
           name: Run xunit tests
-          command: dotnet test UnitTests/UnitTests.csproj
+          command: dotnet test MailgunEmailSender.Tests/MailgunEmailSender.Tests.csproj

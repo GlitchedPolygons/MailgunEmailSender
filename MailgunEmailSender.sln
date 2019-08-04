@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailgunEmailSender", "MailgunEmailSender\MailgunEmailSender.csproj", "{185C45D6-ED4B-4CF8-9375-5DC27B024259}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{326D2F76-8C22-46B4-BDD3-76C627E652A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailgunEmailSender.Tests", "MailgunEmailSender.Tests\MailgunEmailSender.Tests.csproj", "{326D2F76-8C22-46B4-BDD3-76C627E652A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

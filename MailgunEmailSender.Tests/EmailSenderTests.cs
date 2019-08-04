@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace GlitchedPolygons.Services.MailgunEmailSender.UnitTests
+namespace GlitchedPolygons.Services.MailgunEmailSender.Tests
 {
     public class EmailSenderTests
     {
