@@ -10,7 +10,7 @@
     <Authors>Glitched Polygons</Authors>
     <PackageProjectUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</RepositoryUrl>
-    <PackageIconUrl>http://www.stickpng.com/assets/images/58480ed8cef1014c0b5e492d.png</PackageIconUrl>
+    <PackageIconUrl>https://media.githubusercontent.com/media/GlitchedPolygons/NugetIcons/8fc395a8b2ae595a2816a690669490cf9a4764b9/mailgun.png</PackageIconUrl>
     <Description>Mailgun Email Sender API Wrapper for ASP.NET Core apps
 
 With this useful service you can send email through Mailgun. API Key and other params are set in the sender class ctor.
