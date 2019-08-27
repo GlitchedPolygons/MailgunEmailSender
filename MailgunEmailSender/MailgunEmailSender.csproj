@@ -6,12 +6,12 @@
     <Title>GlitchedPolygons.Services.MailgunEmailSender</Title>
     <PackageId>GlitchedPolygons.Services.MailgunEmailSender</PackageId>
     <Product>GlitchedPolygons.Services.MailgunEmailSender</Product>
-    <Version>1.0.5</Version>
+    <Version>1.1.0</Version>
     <Company>Glitched Polygons</Company>
     <Authors>Glitched Polygons</Authors>
     <PackageProjectUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</RepositoryUrl>
-    <PackageVersion>1.0.5</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <PackageIconUrl>https://media.githubusercontent.com/media/GlitchedPolygons/NugetIcons/8fc395a8b2ae595a2816a690669490cf9a4764b9/mailgun.png</PackageIconUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

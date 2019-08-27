@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using RestSharp;
 using RestSharp.Authenticators;
@@ -19,17 +18,14 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
         private readonly RestClient restClient;
 
         /// <summary>
-        /// The Mailgun API base url.
-        /// </summary>
-        private const string MAILGUN_API_URL = "https://api.mailgun.net/v3";
-
-        /// <summary>
         /// Creates an <see cref="EmailSender"/> instance using the specified Mailgun API key, domain and defaultFrom address.
         /// </summary>
         /// <param name="mailgunApiKey">Your Mailgun.com API key.</param>
         /// <param name="domain">Your mailgun-registered emailing domain (e.g. mail.yourdomain.com).</param>
         /// <param name="defaultFrom">The default sender's email address for when no "from" parameter is provided (e.g. "Justin Sider &lt;info@yourdomain.com&gt;").</param>
-        public EmailSender(string mailgunApiKey, string domain, string defaultFrom)
+        /// <param name="baseUrl">The Mailgun API Base URL to use for all requests (US or EU).</param>
+        /// <seealso cref="MailgunApiBaseUrl"/>
+        public EmailSender(string mailgunApiKey, string domain, string defaultFrom, MailgunApiBaseUrl baseUrl = 0)
         {
             if (string.IsNullOrEmpty(mailgunApiKey) || string.IsNullOrWhiteSpace(mailgunApiKey))
             {
@@ -51,8 +47,8 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
 
             restClient = new RestClient
             {
-                BaseUrl = new Uri(MAILGUN_API_URL),
-                Authenticator = new HttpBasicAuthenticator("api", mailgunApiKey)
+                BaseUrl = new Uri(baseUrl == 0 ? "https://api.mailgun.net/v3" : "https://api.eu.mailgun.net/v3"),
+                Authenticator = new HttpBasicAuthenticator("api", mailgunApiKey),
             };
         }
 
