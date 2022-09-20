@@ -11,7 +11,7 @@
     <Authors>Glitched Polygons</Authors>
     <PackageProjectUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GlitchedPolygons/MailgunEmailSender</RepositoryUrl>
-    <PackageVersion>1.1.0</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Mailgun Email Sender API Wrapper for ASP.NET Core apps
@@ -32,17 +32,13 @@ Intended use is within ASP.NET Core apps using MVC; inject the service into the 
     <DocumentationFile>bin\Release\netstandard2.0\GlitchedPolygons.Services.MailgunEmailSender.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="RestSharp" Version="106.3.1" />
-  </ItemGroup>
-
 
 <PropertyGroup>
   <PackageIcon>icon.png</PackageIcon>
 </PropertyGroup>
 
 <ItemGroup>
-  <None Include="icon.png" Pack="true" PackagePath="\"/>
+  <None Include="icon.png" Pack="true" PackagePath="\" />
 </ItemGroup>
 
 </Project>

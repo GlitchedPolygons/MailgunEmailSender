@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Text;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
-using RestSharp;
-using RestSharp.Authenticators;
 
 namespace GlitchedPolygons.Services.MailgunEmailSender
 {
@@ -11,11 +11,11 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
     /// This class is used by the application
     /// to send email via Mailgun and RestSharp.
     /// </summary>
-    public class EmailSender : IEmailSender
+    public class EmailSender : IEmailSender, IDisposable
     {
-        private readonly string domain;
+        private readonly string endpoint;
         private readonly string defaultFrom;
-        private readonly RestClient restClient;
+        private readonly HttpClient httpClient;
 
         /// <summary>
         /// Creates an <see cref="EmailSender"/> instance using the specified Mailgun API key, domain and defaultFrom address.
@@ -42,44 +42,37 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
                 throw new ArgumentException($"{nameof(EmailSender)}::ctor: The passed {nameof(defaultFrom)} string is either null, empty or not a valid email address!", defaultFrom);
             }
 
-            this.domain = domain;
             this.defaultFrom = defaultFrom;
+            this.endpoint = $"v3/{domain}/messages";
 
-            restClient = new RestClient
-            {
-                BaseUrl = new Uri(baseUrl == 0 ? "https://api.mailgun.net/v3" : "https://api.eu.mailgun.net/v3"),
-                Authenticator = new HttpBasicAuthenticator("api", mailgunApiKey),
-            };
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(baseUrl == 0 ? "https://api.mailgun.net" : "https://api.eu.mailgun.net");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes($"api:{mailgunApiKey}")));
         }
 
         /// <summary>
         /// Sends a plain-text-only email to a single recipient.<para> </para>
-        /// Only use for testing or internal use: the html+text variant is much more professional.<para> </para>
+        /// Only use for testing or internal use: html+text variant is much more professional.<para> </para>
+        /// The "from" parameter shall be set automatically by the implementing class.
         /// </summary>
         /// <param name="subject">The email's subject.</param>
         /// <param name="text">The email's text body.</param>
         /// <param name="to">The recipient's email address. Please ensure this is valid!</param>
-        /// <returns>The <see cref="IRestResponse"/> that resulted from sending the email. Contains useful data like <see cref="IRestResponse.IsSuccessful"/>, <see cref="IRestResponse.ErrorMessage"/> in case of an error, etc...</returns>
-        public async Task<IRestResponse> SendEmailAsync(string subject, string text, string to)
+        /// <returns>The <see cref="HttpResponseMessage"/> that resulted from sending the email. Contains useful data like <see cref="HttpResponseMessage.IsSuccessStatusCode"/>, <see cref="HttpResponseMessage.StatusCode"/>, etc...</returns>
+        public Task<HttpResponseMessage> SendEmailAsync(string subject, string text, string to)
         {
             if (string.IsNullOrEmpty(to) || !to.Contains("@"))
             {
                 throw new ArgumentException($"{nameof(EmailSender)}::{nameof(SendEmailAsync)}: The '{nameof(to)}' email address argument is either null, empty or invalid. Please only send email to valid addresses.");
             }
 
-            var request = new RestRequest
+            return httpClient.PostAsync(endpoint, new FormUrlEncodedContent(new[]
             {
-                Method = Method.POST,
-                Resource = "{domain}/messages"
-            };
-
-            request.AddParameter("domain", domain, ParameterType.UrlSegment);
-            request.AddParameter("from", defaultFrom);
-            request.AddParameter("to", to);
-            request.AddParameter("subject", subject ?? string.Empty);
-            request.AddParameter("text", text ?? string.Empty);
-
-            return await restClient.ExecuteTaskAsync(request);
+                new KeyValuePair<string, string>("from", defaultFrom),
+                new KeyValuePair<string, string>("to", to),
+                new KeyValuePair<string, string>("subject", subject ?? string.Empty),
+                new KeyValuePair<string, string>("text", text ?? string.Empty)
+            }));
         }
 
         /// <summary>
@@ -98,52 +91,47 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
         /// <param name="cc">Carbon copy list.</param>
         /// <param name="bcc">Blind carbon copy list.</param>
         /// <param name="attachments">Any email attachments.</param>
-        /// <returns>The <see cref="IRestResponse"/> that resulted from sending the email. Contains useful data like <see cref="IRestResponse.IsSuccessful"/>, <see cref="IRestResponse.ErrorMessage"/> in case of an error, etc...</returns>
-        public async Task<IRestResponse> SendEmailAsync(string from, string to, string subject, string text, string html, string replyTo, string[] additionalRecipients = null, string[] cc = null, string[] bcc = null, IEnumerable<Attachment> attachments = null)
+        /// <returns>The <see cref="HttpResponseMessage"/> that resulted from sending the email. Contains useful data like <see cref="HttpResponseMessage.IsSuccessStatusCode"/>, <see cref="HttpResponseMessage.StatusCode"/>, etc...</returns>
+        public Task<HttpResponseMessage> SendEmailAsync(string from, string to, string subject, string text, string html, string replyTo, string[] additionalRecipients = null, string[] cc = null, string[] bcc = null, IEnumerable<Attachment> attachments = null)
         {
-            var request = new RestRequest
-            {
-                Method = Method.POST,
-                Resource = "{domain}/messages"
-            };
+            var httpContent = new MultipartFormDataContent();
 
-            request.AddParameter("domain", domain, ParameterType.UrlSegment);
-            request.AddParameter("subject", subject ?? string.Empty);
-            request.AddParameter("text", text ?? string.Empty);
-            request.AddParameter("from", from);
-            request.AddParameter("to", to);
+            httpContent.Add(new StringContent(from), "from");
+            httpContent.Add(new StringContent(to), "to");
+            httpContent.Add(new StringContent(subject ?? string.Empty), "subject");
+            httpContent.Add(new StringContent(text ?? string.Empty), "text");
 
             if (!string.IsNullOrEmpty(html))
             {
-                request.AddParameter("html", html);
+                httpContent.Add(new StringContent(html), "html");
             }
 
             if (!string.IsNullOrEmpty(replyTo))
             {
-                request.AddParameter("h:Reply-To", replyTo);
+                httpContent.Add(new StringContent(replyTo), "h:Reply-To");
             }
 
             if (additionalRecipients != null && additionalRecipients.Length > 0)
             {
-                for (int i = additionalRecipients.Length - 1; i >= 0; i--)
+                for (int i = additionalRecipients.Length - 1; i >= 0; --i)
                 {
-                    request.AddParameter("to", additionalRecipients[i]);
+                    httpContent.Add(new StringContent(additionalRecipients[i]), "to");
                 }
             }
 
             if (cc != null && cc.Length > 0)
             {
-                for (int i = cc.Length - 1; i >= 0; i--)
+                for (int i = cc.Length - 1; i >= 0; --i)
                 {
-                    request.AddParameter("cc", cc[i]);
+                    httpContent.Add(new StringContent(cc[i]), "cc");
                 }
             }
 
             if (bcc != null && bcc.Length > 0)
             {
-                for (int i = bcc.Length - 1; i >= 0; i--)
+                for (int i = bcc.Length - 1; i >= 0; --i)
                 {
-                    request.AddParameter("bcc", bcc[i]);
+                    httpContent.Add(new StringContent(bcc[i]), "bcc");
                 }
             }
 
@@ -151,11 +139,32 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
             {
                 foreach (var attachment in attachments)
                 {
-                    request.AddFile(attachment.name, attachment.file, attachment.fileName, attachment.contentType);
+                    ByteArrayContent fileContent = new ByteArrayContent(attachment.File);
+
+                    fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "attachment",
+                        FileName = attachment.FileName,
+                    };
+
+                    if (!string.IsNullOrEmpty(attachment.ContentType) && MediaTypeHeaderValue.TryParse(attachment.ContentType, out MediaTypeHeaderValue parsedMediaType))
+                    {
+                        fileContent.Headers.ContentType = parsedMediaType;
+                    }
+
+                    httpContent.Add(fileContent);
                 }
             }
 
-            return await restClient.ExecuteTaskAsync(request);
+            return httpClient.PostAsync(endpoint, httpContent);
+        }
+
+        /// <summary>
+        /// Disposes this <see cref="EmailSender"/> and its underlying <see cref="HttpClient"/>.
+        /// </summary>
+        public void Dispose()
+        {
+            httpClient?.Dispose();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
-using RestSharp;
 
 namespace GlitchedPolygons.Services.MailgunEmailSender
 {
@@ -17,8 +17,8 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
         /// <param name="subject">The email's subject.</param>
         /// <param name="text">The email's text body.</param>
         /// <param name="to">The recipient's email address. Please ensure this is valid!</param>
-        /// <returns>The <see cref="IRestResponse"/> that resulted from sending the email. Contains useful data like <see cref="IRestResponse.IsSuccessful"/>, <see cref="IRestResponse.ErrorMessage"/> in case of an error, etc...</returns>
-        Task<IRestResponse> SendEmailAsync(string subject, string text, string to);
+        /// <returns>The <see cref="HttpResponseMessage"/> that resulted from sending the email. Contains useful data like <see cref="HttpResponseMessage.IsSuccessStatusCode"/>, <see cref="HttpResponseMessage.StatusCode"/>, etc...</returns>
+        Task<HttpResponseMessage> SendEmailAsync(string subject, string text, string to);
 
         /// <summary>
         /// Sends an email that contains both a text and html variant. This is the most common approach.<para> </para>
@@ -36,7 +36,7 @@ namespace GlitchedPolygons.Services.MailgunEmailSender
         /// <param name="cc">Carbon copy list.</param>
         /// <param name="bcc">Blind carbon copy list.</param>
         /// <param name="attachments">Any email attachments.</param>
-        /// <returns>The <see cref="IRestResponse"/> that resulted from sending the email. Contains useful data like <see cref="IRestResponse.IsSuccessful"/>, <see cref="IRestResponse.ErrorMessage"/> in case of an error, etc...</returns>
-        Task<IRestResponse> SendEmailAsync(string from, string to, string subject, string text, string html, string replyTo = null, string[] additionalRecipients = null, string[] cc = null, string[] bcc = null, IEnumerable<Attachment> attachments = null);
+        /// <returns>The <see cref="HttpResponseMessage"/> that resulted from sending the email. Contains useful data like <see cref="HttpResponseMessage.IsSuccessStatusCode"/>, <see cref="HttpResponseMessage.StatusCode"/>, etc...</returns>
+        Task<HttpResponseMessage> SendEmailAsync(string from, string to, string subject, string text, string html, string replyTo = null, string[] additionalRecipients = null, string[] cc = null, string[] bcc = null, IEnumerable<Attachment> attachments = null);
     }
 }

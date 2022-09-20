@@ -3,27 +3,27 @@
     /// <summary>
     /// An email attachment's details.
     /// </summary>
-    public struct Attachment
+    public class Attachment
     {
         /// <summary>
         /// The attachment's name.
         /// </summary>
-        public string name;
+        public string Name { get; set; }
 
         /// <summary>
         /// The attachment's file name.
         /// </summary>
-        public string fileName;
+        public string FileName { get; set; }
 
         /// <summary>
         /// The actual attachment file's bytes.
         /// </summary>
-        public byte[] file;
+        public byte[] File { get; set; }
 
         /// <summary>
-        /// The request's content type.
-        /// Can be left null, unlike the other fields here.
+        /// [OPTIONAL] The request's content type. <para> </para>
+        /// Can be left <c>null</c>, unlike the other fields here.
         /// </summary>
-        public string contentType;
+        public string ContentType { get; set; }
     }
 }
