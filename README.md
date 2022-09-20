@@ -19,7 +19,3 @@ services.AddSingleton<IEmailSender, EmailSender>(
                 )
             );
 ` 
-
-### Dependencies:
-
-* [RestSharp (>= 106.3.1)](https://github.com/restsharp/RestSharp)
